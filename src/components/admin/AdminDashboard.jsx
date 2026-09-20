@@ -385,14 +385,14 @@ export default function AdminDashboard({ onNotify }) {
             borderBottom: '1px solid var(--border-subtle)'
           }}>
             {/* Product Selector */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-              <div>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', flexWrap: 'wrap', width: '100%', maxWidth: '700px' }}>
+              <div style={{ flex: '1 1 200px', minWidth: '180px' }}>
                 <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', marginBottom: '4px' }}>
                   Current Product
                 </label>
                 <select
                   className="input-field"
-                  style={{ minWidth: '280px', fontWeight: 600 }}
+                  style={{ width: '100%', fontWeight: 600 }}
                   value={selectedCalcId}
                   onChange={(e) => setSelectedCalcId(e.target.value)}
                 >
@@ -404,44 +404,41 @@ export default function AdminDashboard({ onNotify }) {
                 </select>
               </div>
 
-              {/* Add New Product Button */}
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm"
-                style={{ marginTop: '20px' }}
-                onClick={() => setNewProductModalOpen(true)}
-              >
-                <Plus size={14} color="var(--accent-coral)" />
-                <span>Add Product</span>
-              </button>
+              {/* Product Mutation Buttons */}
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => setNewProductModalOpen(true)}
+                >
+                  <Plus size={14} color="var(--accent-coral)" />
+                  <span>Add Product</span>
+                </button>
 
-              {/* Clone Product Button */}
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm"
-                style={{ marginTop: '20px' }}
-                onClick={handleCloneProduct}
-                title="Duplicate this product"
-              >
-                <Copy size={14} />
-                <span>Clone</span>
-              </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={handleCloneProduct}
+                  title="Duplicate this product"
+                >
+                  <Copy size={14} />
+                  <span>Clone</span>
+                </button>
 
-              {/* Delete Product Button */}
-              <button
-                type="button"
-                className="btn btn-danger btn-sm"
-                style={{ marginTop: '20px' }}
-                onClick={handleDeleteProduct}
-                title="Delete this product"
-              >
-                <Trash2 size={14} />
-                <span>Delete</span>
-              </button>
+                <button
+                  type="button"
+                  className="btn btn-danger btn-sm"
+                  onClick={handleDeleteProduct}
+                  title="Delete this product"
+                >
+                  <Trash2 size={14} />
+                  <span>Delete</span>
+                </button>
+              </div>
             </div>
 
             {/* Right save / reset actions */}
-            <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '6px', width: '100%', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 className="btn btn-secondary btn-sm"
@@ -892,10 +889,9 @@ export default function AdminDashboard({ onNotify }) {
             <label style={{ fontSize: '0.76rem', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
               Base Cost Formula Expression
             </label>
-            <input
-              type="text"
-              className="input-field font-mono"
-              style={{ fontSize: '1rem', padding: '12px 14px', background: '#FFF' }}
+            <textarea
+              className="formula-textarea font-mono"
+              rows={3}
               placeholder="(fabricCost + stitchingCost + packingCost) * overheadMultiplier"
               value={editableConfig.customFormula ?? '(fabricCost + stitchingCost + packingCost) * overheadMultiplier'}
               onChange={(e) => setEditableConfig({ ...editableConfig, customFormula: e.target.value })}
@@ -1152,7 +1148,7 @@ export default function AdminDashboard({ onNotify }) {
             gap: 'var(--space-3)',
             marginBottom: 'var(--space-4)'
           }}>
-            <div style={{ position: 'relative', width: '280px' }}>
+            <div style={{ position: 'relative', flex: '1 1 200px', maxWidth: '320px', width: '100%' }}>
               <input
                 type="text"
                 className="input-field"

@@ -786,7 +786,7 @@ export default function UserCalculatorView({ onNotify }) {
       {/* RIGHT COLUMN: Hero Calculated Output, Breakdown Visualizer & Tier Matrix */}
       <div>
         {/* HERO PRICE CARD */}
-        <div className="hero-price-card">
+        <div id="hero-price-card" className="hero-price-card">
           <div className="hero-card-header">
             <span className="hero-tag">
               {activeCategory === 'marketplace' ? 'Recommended Selling Price' : 'Wholesale Rate'}
@@ -1010,6 +1010,63 @@ export default function UserCalculatorView({ onNotify }) {
               )}
             </div>
           )}
+        </div>
+      </div>
+
+      {/* MOBILE FLOATING BOTTOM PRICE BAR */}
+      <div className="mobile-price-bar">
+        <div
+          className="mobile-price-info"
+          onClick={() => {
+            const el = document.getElementById('hero-price-card');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          style={{ cursor: 'pointer' }}
+        >
+          <div className="mobile-price-meta">
+            <span>
+              {activeCategory === 'bedsheets' ? currentBedsheetConfig?.name : activeCategory === 'dohar' ? 'Dohar Quilt' : activeCategory === 'comforters' ? 'Comforter' : 'Flipkart'}
+            </span>
+            {activeCategory !== 'marketplace' && (
+              <span className="mobile-price-tier-tag">{currentTier.id}</span>
+            )}
+          </div>
+          <div className="mobile-price-figure">
+            <span className="mobile-price-currency">₹</span>
+            <span className="mobile-price-val">
+              {activeCategory === 'marketplace'
+                ? flipkartCalculation?.sellingPriceInclGST?.toLocaleString()
+                : activeCalc?.finalPrice?.toLocaleString() || 0}
+            </span>
+            <span className="mobile-price-unit">
+              {activeCategory === 'marketplace' ? 'incl. GST' : '/ unit'}
+            </span>
+          </div>
+        </div>
+
+        <div className="mobile-price-actions">
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={handleCopy}
+            title="Copy Quote"
+            style={{ padding: '6px 12px', borderRadius: 'var(--radius-sm)' }}
+          >
+            {copied ? <Check size={14} color="#10B981" /> : <Copy size={14} />}
+            <span style={{ fontSize: '0.74rem' }}>{copied ? 'Copied' : 'Quote'}</span>
+          </button>
+          <button
+            type="button"
+            className="btn btn-accent btn-sm"
+            onClick={() => {
+              const el = document.getElementById('hero-price-card');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            style={{ padding: '6px 10px', borderRadius: 'var(--radius-sm)' }}
+          >
+            <ChevronUp size={15} />
+            <span style={{ fontSize: '0.74rem' }}>Details</span>
+          </button>
         </div>
       </div>
     </div>

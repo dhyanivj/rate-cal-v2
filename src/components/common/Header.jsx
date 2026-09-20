@@ -45,7 +45,15 @@ export default function Header({ currentMode, onToggleMode }) {
         {/* User Pill */}
         <div className="user-status-pill">
           <span className="user-status-indicator"></span>
-          <span style={{ fontFamily: 'var(--font-mono)' }}>{currentUser?.id}</span>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            maxWidth: '100px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+          }}>
+            {currentUser?.id}
+          </span>
           {currentUser?.role === 'admin' ? (
             <span className="admin-badge">Admin</span>
           ) : null}

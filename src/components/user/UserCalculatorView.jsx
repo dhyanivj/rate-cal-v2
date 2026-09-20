@@ -959,10 +959,12 @@ export default function UserCalculatorView({ onNotify }) {
               borderTop: '1px solid var(--border-subtle)',
               fontSize: '0.78rem',
               color: 'var(--text-secondary)',
-              background: 'var(--bg-surface-soft)'
+              background: 'var(--bg-surface-soft)',
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch'
             }}>
               {activeCategory === 'bedsheets' && bedsheetCalculation && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)', overflowWrap: 'break-word', wordBreak: 'break-word', fontSize: '0.72rem' }}>
                   <div>1. Total Meter = Bedsheet ({bedsheetCalculation.bedsheetMeter}m) + Pillows ({bedsheetCalculation.pillowMeter}m) = <strong>{bedsheetCalculation.totalMeter}m</strong></div>
                   <div>2. Fabric Cost = Total Meter × Rate = <strong>₹ {bedsheetCalculation.fabricCost}</strong></div>
                   <div>3. Stitching Total = Bedsheet (₹{bedsheetCalculation.bedsheetStitching}) + Pillows (₹{bedsheetCalculation.pillowStitching}) = <strong>₹ {bedsheetCalculation.stitchingTotal}</strong></div>
@@ -974,7 +976,7 @@ export default function UserCalculatorView({ onNotify }) {
               )}
 
               {activeCategory === 'dohar' && doharCalculation && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)', overflowWrap: 'break-word', wordBreak: 'break-word', fontSize: '0.72rem' }}>
                   <div>1. Fabric Cost = <strong>₹ {doharCalculation.fabricCost}</strong></div>
                   <div>2. Doori Cost = <strong>₹ {doharCalculation.dooriCost}</strong></div>
                   <div>3. Piping Fabric Cost = <strong>₹ {doharCalculation.pipingCost}</strong></div>
@@ -987,7 +989,7 @@ export default function UserCalculatorView({ onNotify }) {
               )}
 
               {activeCategory === 'comforters' && comforterCalculation && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)', overflowWrap: 'break-word', wordBreak: 'break-word', fontSize: '0.72rem' }}>
                   <div>1. Fabric Shell Cost = <strong>₹ {comforterCalculation.fabricCost}</strong></div>
                   <div>2. Polyfill Fiber Cost = <strong>₹ {comforterCalculation.polyfillCost}</strong></div>
                   <div>3. Non-Woven Cost = <strong>₹ {comforterCalculation.nonWovenCost}</strong></div>
@@ -999,7 +1001,7 @@ export default function UserCalculatorView({ onNotify }) {
               )}
 
               {activeCategory === 'marketplace' && flipkartCalculation && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)', overflowWrap: 'break-word', wordBreak: 'break-word', fontSize: '0.72rem' }}>
                   <div>1. Fixed Fee Bracket = <strong>₹ {flipkartCalculation.fixedFee}</strong></div>
                   <div>2. Selling Price (Incl. GST) = ROUND((Purchase({flipkartCalculation.purchasePrice}) + 101 + FixedFee({flipkartCalculation.fixedFee})) ÷ 0.692) = <strong style={{ color: 'var(--accent-coral)' }}>₹ {flipkartCalculation.sellingPriceInclGST}</strong></div>
                   <div>3. Selling Price (Excl. GST) = (20 × SellingPrice) ÷ 21 = <strong>₹ {flipkartCalculation.sellingPriceExclGST}</strong></div>

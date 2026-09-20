@@ -14,10 +14,14 @@ html {
   background-color: var(--bg-app);
   color: var(--text-primary);
   font-family: var(--font-sans);
+  /* Hard-clamp to viewport — prevents ANY element from blowing layout width */
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
   min-height: 100vh;
+  max-width: 100vw;
   background-color: var(--bg-app);
   background-image: radial-gradient(rgba(21, 24, 28, 0.04) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -48,8 +52,12 @@ body {
 /* --- APP LAYOUT --- */
 .app-container {
   max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
   padding: var(--space-3);
+  /* Prevent any child from blowing past viewport */
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 @media (min-width: 640px) {
@@ -344,6 +352,14 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-4);
+  /* Crucial: prevent grid children from overflowing viewport */
+  min-width: 0;
+}
+
+/* All direct children of workspace-grid must be constrained */
+.workspace-grid > * {
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 @media (min-width: 1024px) {
@@ -374,6 +390,8 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
   margin-bottom: var(--space-4);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--border-subtle);
@@ -713,11 +731,17 @@ body {
   background: var(--bg-dark);
   color: var(--text-on-dark);
   border-radius: var(--radius-xl);
-  padding: var(--space-6);
+  padding: var(--space-4);
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-dark);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 480px) {
+  .hero-price-card {
+    padding: var(--space-6);
+  }
 }
 
 .hero-price-card::before {
@@ -736,6 +760,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
 
@@ -765,22 +791,35 @@ body {
   align-items: baseline;
   gap: 4px;
   margin-bottom: var(--space-2);
+  flex-wrap: wrap;
 }
 
 .hero-currency {
   font-family: var(--font-editorial);
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   color: var(--accent-coral);
   line-height: 1;
 }
 
+@media (min-width: 480px) {
+  .hero-currency {
+    font-size: 2.2rem;
+  }
+}
+
 .hero-amount {
   font-family: var(--font-editorial);
-  font-size: 3.8rem;
+  font-size: 2.8rem;
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1;
   color: #FFF;
+}
+
+@media (min-width: 480px) {
+  .hero-amount {
+    font-size: 3.8rem;
+  }
 }
 
 .hero-unit {
@@ -885,6 +924,8 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-2);
+  /* Ensure tier grid never overflows on very narrow screens */
+  min-width: 0;
 }
 
 @media (min-width: 640px) {
@@ -928,10 +969,20 @@ body {
 
 .tier-rate-figure {
   font-family: var(--font-editorial);
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   margin: 3px 0 1px 0;
   line-height: 1.1;
   color: var(--text-primary);
+  /* Prevent long numbers from blowing out small cards */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 480px) {
+  .tier-rate-figure {
+    font-size: 1.35rem;
+  }
 }
 
 .tier-card.active .tier-rate-figure {
@@ -947,6 +998,7 @@ body {
 /* --- QUICK ACTION BUTTONS BAR --- */
 .action-toolbar {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
   margin-top: var(--space-5);
 }
